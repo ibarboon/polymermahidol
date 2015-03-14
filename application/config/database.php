@@ -4,10 +4,10 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';//polymerm_dba
-$db['default']['password'] = 'root';//3gkTiNkA
+$db['default']['username'] = 'root';//polymerm_adm
+$db['default']['password'] = 'root';//0CcW07L1
 $db['default']['database'] = 'polymerm_db';
-$db['default']['dbdriver'] = 'mysql';
+$db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;

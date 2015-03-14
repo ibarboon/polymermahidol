@@ -70,7 +70,7 @@
 							<ul id="mainMenu" class="nav nav-pills nav-main">
 								<?php
 									foreach ($nav_main_list as $nav_main) {
-										$active = ($nav_main['option_key'] == $current_page)? ' active': '';
+										$active = ($nav_main['option_key'] === $current_page)? ' active': '';
 										if (count($nav_main['dropdown_list']) > 0) {
 											echo '<li class="dropdown'.$active.'">';
 											echo '<a href="javascript: void(0);" class="dropdown-toggle">';
@@ -80,7 +80,7 @@
 											echo '<ul class="dropdown-menu">';
 											foreach ($nav_main['dropdown_list'] as $dropdown) {
 												echo '<li>';
-												echo '<a href="javascript: void(0);">'.$dropdown['option_value'].'</a>';
+												echo '<a href="'.site_url($current_language.'/'.$nav_main['option_key'].'/'.$dropdown['option_key']).'">'.$dropdown['option_value'].'</a>';
 												echo '</li>';
 											}
 											echo '</ul>';

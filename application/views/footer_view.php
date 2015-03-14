@@ -55,8 +55,13 @@
 							<div class="col-md-4">
 								<nav id="sub-menu">
 									<ul>
-										<li><a href="<?php echo site_url('en/'.$current_page); ?>">EN</a></li>
-										<li><a href="<?php echo site_url('th/'.$current_page); ?>">TH</a></li>
+										<?php
+											$lang_list = array('en', 'th');
+											$content_alias_name = (isset($content_alias_name))? $content_alias_name: NULL;
+											foreach ($lang_list as $lang) {
+										?>
+										<li><a href="<?php echo site_url($lang.'/'.$current_page.'/'.$content_alias_name); ?>"><?php echo strtoupper($lang); ?></a></li>
+										<?php } ?>
 									</ul>
 								</nav>
 							</div>
@@ -87,5 +92,64 @@
 		<script src="<?php echo base_url('assets/js/views/view.home.js'); ?>"></script>
 		<script src="<?php echo base_url('assets/js/custom.js'); ?>"></script>
 		<script src="<?php echo base_url('assets/js/theme.init.js'); ?>"></script>
+		<?php if (isset($content_alias_name) AND $content_alias_name == 'contact-us') { ?>
+			<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+			<script type="text/javascript">
+				$(function(){
+					$('#contact-us-form').submit(function(){
+						var action = $(this).attr('action');
+						console.log('action : ' + action);
+						console.log($(this).serialize());
+						$.post(action, $(this).serialize(), function(responseMessage){
+							console.log('responseMessage : ' + responseMessage);
+						});
+						return false;
+					});
+				});
+			</script>
+			<script>
+				var mapMarkers = [{
+					address: "Mahidol University",
+					html: "<strong>Polymer Science and Technology | MU</strong>",
+					icon: {
+						image: "./assets/img/pin.png",
+						iconsize: [26, 46],
+						iconanchor: [12, 46]
+					},
+					popup: true
+				}];
+	
+				// Map Initial Location
+				var initLatitude = 40.75198;
+				var initLongitude = -73.96978;
+	
+				// Map Extended Settings
+				var mapSettings = {
+					controls: {
+						draggable: true,
+						panControl: true,
+						zoomControl: true,
+						mapTypeControl: true,
+						scaleControl: true,
+						streetViewControl: true,
+						overviewMapControl: true
+					},
+					scrollwheel: false,
+					markers: mapMarkers,
+					latitude: initLatitude,
+					longitude: initLongitude,
+					zoom: 16
+				};
+	
+				var map = $("#googlemaps").gMap(mapSettings);
+	
+				// Map Center At
+				var mapCenterAt = function(options, e) {
+					e.preventDefault();
+					$("#googlemaps").gMap("centerAt", options);
+				}
+	
+			</script>
+		<?php } ?>
 	</body>
 </html>
