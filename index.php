@@ -1,5 +1,4 @@
 <?php
-
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
@@ -18,7 +17,11 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	define('ENVIRONMENT', 'development');
+	if ($_SERVER["HTTP_HOST"] === 'localhost:8888') {
+		define('ENVIRONMENT', 'development');
+	} else {
+		define('ENVIRONMENT', 'production');
+	}
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
@@ -33,9 +36,9 @@ if (defined('ENVIRONMENT'))
 	switch (ENVIRONMENT)
 	{
 		case 'development':
-			error_reporting(E_ALL);
+			error_reporting(E_ALL | E_STRICT);
 		break;
-	
+
 		case 'testing':
 		case 'production':
 			error_reporting(0);

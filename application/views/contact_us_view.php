@@ -28,11 +28,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6">
-				<div class="alert alert-success hidden" id="contact-success">
-					<strong>Success!</strong> Your message has been sent to us.
+				<div class="alert alert-success" id="contact-success" style="display: none;">
+					<?php echo ($current_language === 'en')? 'Your message has been sent.': 'ข้อความของคุณถูกส่งแล้ว'; ?>
 				</div>
-				<div class="alert alert-danger hidden" id="contact-error">
-					<strong>Error!</strong> There was an error sending your message.
+				<div class="alert alert-danger" id="contact-error" style="display: none;">
+					<?php echo ($current_language === 'en')? 'There was an error sending your message.': 'เกิดข้อผิดพลาดในการส่งข้อความของคุณ'; ?>
 				</div>
 				<form id="contact-us-form" action="<?php echo site_url('about_us/do_send_mail'); ?>" method="POST">
 					<div class="row">

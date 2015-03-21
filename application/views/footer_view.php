@@ -3,7 +3,11 @@
 					<div class="row">
 						<div class="col-md-9">
 							<h4><?php echo ($current_language === 'en')? 'About Us': 'เกี่ยวกับเรา'; ?></h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu pulvinar magna. Phasellus semper scelerisque purus, et semper nisl lacinia sit amet. Praesent venenatis turpis vitae purus semper, eget sagittis velit venenatis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos... <a class="btn-flat btn-xs" href="#">View More <i class="fa fa-arrow-right"></i></a></p>
+							<?php
+								echo substr($history['content_body'], 0, strpos($history['content_body'],'</p>'));
+								$a_text = ($current_language === 'en')? 'View More': 'ดูเพิ่มเติม';
+								echo '<a class="btn-flat btn-xs" href="'.site_url($current_language.'/about-us/history').'">'.$a_text.' <i class="fa fa-arrow-right"></i></a></p>';
+							?>
 							<hr class="light">
 							<div class="row">
 								<?php
@@ -102,6 +106,11 @@
 						console.log($(this).serialize());
 						$.post(action, $(this).serialize(), function(responseMessage){
 							console.log('responseMessage : ' + responseMessage);
+							if (responseMessage) {
+								$('#contact-success').show();
+							} else {
+								$('#contact-error').show();
+							}
 						});
 						return false;
 					});
