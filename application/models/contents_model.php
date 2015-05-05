@@ -1,18 +1,47 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Contents_Model extends CI_Model {
+class Contents_Model extends MY_Model {
 
+	protected $column_name = 'row_id, created, content_type, content_alias_name, content_header, content_body, content_media, content_language';
+	protected $table_name = 'tbl_contents';
+	protected $order_by = array( 'last_updated', 'desc' );
+	
 	public function __construct() {
 		parent::__construct();
-	}
+	} /* method : __construct*/
 
-	public function get_content_list() {
-		$sql = "select * ";
-		$sql .= "from cms_contents ";
-		$sql .= "order by content_type, content_language, created desc";
-		$query = $this->db->query($sql);
+	public function query_by_condition($conditions = NULL, $order_by = NULL) {
+		$sql = "select row_id as content_id, content_type, content_alias_name, content_header, content_body, content_media, content_language ";
+		$sql .= "from tbl_contents ";
+		$sql .= "where 1 = 1 ";
+		if (!is_null($conditions)) {
+			foreach ($conditions as $column_name => $column_value) {
+				$sql .= "and $column_name = ? ";
+			}
+		}
+		if (is_null($order_by)) {
+			$sql .= "order by created desc";
+		} else {
+			$sql .= "order by $order_by asc";
+		}
+		$query = $this->db->query($sql, $conditions);
 		return $query->result_array();
 	}
+	
+	public function get_content_list($content) {
+		$sql = "select row_id content_id, date_format(created,'%e') content_day, date_format(created,'%b') content_month, content_header, content_body, content_media ";
+		$sql .= "from app_contents ";
+		foreach($content as $key => $value) {
+			if (strpos($sql, 'where') === FALSE) {
+				$sql .= "where $key = ? ";
+			} else {
+				$sql .= "and $key = ? ";
+			}
+		}
+		$sql .= "order by last_updated desc";
+		$query = $this->db->query($sql, $content);
+		return $query->result_array();
+	} # get_content_list
 	
 	public function get_content_list_by_type($in_content_type, $in_content_language) {
 		$sql = "select row_id content_id, date_format(created,'%e') d, substring(date_format(created,'%M'), 1, 3) m, created_by, content_alias_name, content_header, content_body , content_media ";
@@ -60,7 +89,7 @@ class Contents_Model extends CI_Model {
 	}
 
 	public function get_content($content) {
-		$sql = "select * ";
+		$sql = "select row_id content_id, date_format(created,'%e') content_day, date_format(created,'%b') content_month, content_header, content_body, content_media ";
 		$sql .= "from app_contents ";
 		foreach($content as $key => $value) {
 			if (strpos($sql, 'where') === FALSE) {
@@ -72,7 +101,7 @@ class Contents_Model extends CI_Model {
 		$sql .= "limit 1";
 		$query = $this->db->query($sql, $content);
 		return $query->row_array();
-	}
+	} # get_content
 	
 	public function get_content_by_id($content) {
 		$sql = "select * ";

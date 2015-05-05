@@ -17,6 +17,7 @@
 		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url('assets/vendor/owlcarousel/owl.theme.css'); ?>">
 		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url('assets/vendor/magnific-popup/magnific-popup.css'); ?>">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/theme.css'); ?>">
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/theme-blog.css'); ?>">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/theme-elements.css'); ?>">
 		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url('assets/vendor/circle-flip-slideshow/css/component.css'); ?>">
 		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url('assets/vendor/nivo-slider/nivo-slider.css'); ?>">

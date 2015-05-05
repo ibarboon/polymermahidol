@@ -34,7 +34,7 @@
 				<div class="alert alert-danger" id="contact-error" style="display: none;">
 					<?php echo ($current_language === 'en')? 'There was an error sending your message.': 'เกิดข้อผิดพลาดในการส่งข้อความของคุณ'; ?>
 				</div>
-				<form id="contact-us-form" action="<?php echo site_url('about_us/do_send_mail'); ?>" method="POST">
+				<form id="contact-us-form" action="<?php echo site_url($current_language.'/about_us/do_send_mail'); ?>" method="POST">
 					<div class="row">
 						<div class="form-group">
 							<div class="col-md-6">
